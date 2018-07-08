@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatME</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-social.css" rel="stylesheet" type="text/css" />
+    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+    </script>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script src="https://www.w3schools.com/lib/w3data.js"></script>
+  </head>
+  <script>
+    window.addEventListener('load', function() {
+      firebase.auth().onAuthStateChanged(onAuthStateChanged);
+      getalluser();
+      startDatabaseQueries();
+    }, false);
+  </script>
+  <body>
+    <div class="container">
+      <div class="row vertical-offset-100">
+      	<div class="col-md-10 col-md-offset-1">
+      		<div class="panel panel-default panel-chatme" style="height: 500px;">
+  			  	<div class="panel-heading">
+  			    	<img src="img/logo_white.png" width="150px"/>
+              <div class="pull-right">
+                <button class="btn btn-danger" onclick="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign out</button>
+              </div>
+  			 	  </div>
+  			  	<div class="panel-body">
+              <div class="col-sm-4">
+                <div class="profile-pic">
+                  <img src="img/userimage.png" width="150px" class="img-circle" id="user-pic"/>
+                  <h3 id="user-name"> </h3>
+                </div>
+                <ul class="nav nav-pills nav-stacked tab-chatme">
+                  <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i> Users</a></li>
+                  <li class=""><a href="#tab2" data-toggle="tab"><i class="fa fa-comment" aria-hidden="true"></i> Chats</a></li>
+                  <!-- <li class=""><a href="#tab3" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li> -->
+                </ul>
+              </div>
+              <div class="col-sm-8 nopadding">
+                <div class="tab-content">
+                  <div class="tab-pane active text-style " id="tab1">
+                    <div class="row userlist" id="friendlist">
+                    </div>
+                  </div>
+                  <div class="tab-pane text-style" id="tab2">
+                    <div class="row chatbox" id="chatbox">
+                    </div>
+                    <div class="row postbox">
+                      <div class="input-group">
+                        <input name="msg" type="text" class="form-control" onkeypress="runScript(event)" placeholder="Message Here...">
+                        <div class="input-group-btn">
+                          <button class="btn btn-default" id="sendmsg" onclick="sendmsg()">
+                            <i class="fa fa-paper-plane"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="tab-pane text-style" id="tab3"></div> -->
+                </div>
+              </div>
+  			    </div>
+  			  </div>
+    		</div>
+    	</div>
+      <div class="row">
+      	<div class="col-md-4 col-md-offset-4 text-center">
+      		<p>Suppachai Neeranit © 2017</p>
+    		</div>
+    	</div>
+    </div>
+
+  <script>
+    function sendmsg(){
+      var msg = $('input[name=msg');
+      if(msg.val() != ''){
+        newPostForCurrentUser(msg.val());
+        msg.val('');
+      }else{
+        alert('No Message');
+      }
+    }
+
+    function runScript(e) {
+      if (e.keyCode == 13) {
+          sendmsg();
+      }
+    }
+  </script>
+  </body>
+</html>
